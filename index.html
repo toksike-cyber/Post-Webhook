@@ -2,53 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Webhook Form POST</title>
+  <title>Pure HTML Webhook POST</title>
 </head>
 <body>
-  <h2>Send Form Data to Webhook</h2>
-  
-  <form id="webhookForm">
+  <h2>Send Data to Webhook (Pure HTML)</h2>
+
+  <form action="https://crhemea.webhook.office.com/webhookb2/4010553a-2f9f-403c-a4d2-7dda5bd21deb@c3ce31d5-61f3-4ee3-88c4-2f15f5bae9f5/IncomingWebhook/165ad450ec9548c68e0b84ca4cd700dd/8c6de24a-f8fb-4f27-8c97-2fc39bb88091/V2aQfVa4mSHCktwNt4zxhw-PC2pmcThbd60Ru3LU22JPk1" method="POST">
     <label>
       Username:
-      <input type="text" id="username" required>
+      <input type="text" name="username" required>
     </label>
     <br><br>
     <label>
       Message:
-      <input type="text" id="message" required>
+      <input type="text" name="message" required>
     </label>
     <br><br>
     <button type="submit">Send</button>
   </form>
-
-  <script>
-    const webhookUrl = "https://crhemea.webhook.office.com/webhookb2/4010553a-2f9f-403c-a4d2-7dda5bd21deb@c3ce31d5-61f3-4ee3-88c4-2f15f5bae9f5/IncomingWebhook/165ad450ec9548c68e0b84ca4cd700dd/8c6de24a-f8fb-4f27-8c97-2fc39bb88091/V2aQfVa4mSHCktwNt4zxhw-PC2pmcThbd60Ru3LU22JPk1"; // Replace with your webhook URL
-
-    document.getElementById("webhookForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-
-      const payload = {
-        username: document.getElementById("username").value,
-        message: document.getElementById("message").value
-      };
-
-      fetch(webhookUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(payload)
-      })
-      .then(response => response.text())
-      .then(result => {
-        console.log("Success:", result);
-        alert("Webhook sent!");
-      })
-      .catch(error => {
-        console.error("Error:", error);
-        alert("Failed to send webhook.");
-      });
-    });
-  </script>
 </body>
 </html>
