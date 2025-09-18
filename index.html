@@ -2,49 +2,39 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Webhook Sender</title>
-  <style>
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      font-family: Arial, sans-serif;
-      background: #f5f5f5;
-    }
-    button {
-      padding: 12px 20px;
-      font-size: 18px;
-      background: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-    button:hover {
-      background: #45a049;
-    }
-  </style>
+  <title>Webhook POST Example</title>
 </head>
 <body>
-  <button onclick="sendWebhook()">Send Webhook</button>
+  <h2>Send Data to Webhook</h2>
+  
+  <button onclick="sendWebhook()">Send POST</button>
 
   <script>
     function sendWebhook() {
-      fetch("https://crhemea.webhook.office.com/webhookb2/4010553a-2f9f-403c-a4d2-7dda5bd21deb@c3ce31d5-61f3-4ee3-88c4-2f15f5bae9f5/IncomingWebhook/165ad450ec9548c68e0b84ca4cd700dd/8c6de24a-f8fb-4f27-8c97-2fc39bb88091/V2aQfVa4mSHCktwNt4zxhw-PC2pmcThbd60Ru3LU22JPk1", {   // <--- Replace with your webhook URL
+      const url = "https://your-webhook-url.com"; // Replace with your webhook URL
+      
+      // Data you want to send
+      const data = {
+        username: "Webhook Tester",
+        message: "Hello, this is a test POST request!"
+      };
+
+      fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({
-          message: "Hello from GitHub Pages!",
-          timestamp: new Date().toISOString()
-        })
+        body: JSON.stringify(data)
       })
       .then(response => response.text())
-      .then(data => alert("Webhook sent! Response: " + data))
-      .catch(error => alert("Error: " + error));
+      .then(result => {
+        console.log("Success:", result);
+        alert("Webhook sent!");
+      })
+      .catch(error => {
+        console.error("Error:", error);
+        alert("Failed to send webhook.");
+      });
     }
   </script>
 </body>
