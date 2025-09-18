@@ -2,29 +2,42 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Webhook POST Example</title>
+  <title>Webhook Form POST</title>
 </head>
 <body>
-  <h2>Send Data to Webhook</h2>
+  <h2>Send Form Data to Webhook</h2>
   
-  <button onclick="sendWebhook()">Send POST</button>
+  <form id="webhookForm">
+    <label>
+      Username:
+      <input type="text" id="username" required>
+    </label>
+    <br><br>
+    <label>
+      Message:
+      <input type="text" id="message" required>
+    </label>
+    <br><br>
+    <button type="submit">Send</button>
+  </form>
 
   <script>
-    function sendWebhook() {
-      const url = "https://your-webhook-url.com"; // Replace with your webhook URL
-      
-      // Data you want to send
-      const data = {
-        username: "Webhook Tester",
-        message: "Hello, this is a test POST request!"
+    const webhookUrl = "https://your-webhook-url.com"; // Replace with your webhook URL
+
+    document.getElementById("webhookForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const payload = {
+        username: document.getElementById("username").value,
+        message: document.getElementById("message").value
       };
 
-      fetch(url, {
+      fetch(webhookUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(payload)
       })
       .then(response => response.text())
       .then(result => {
@@ -35,7 +48,7 @@
         console.error("Error:", error);
         alert("Failed to send webhook.");
       });
-    }
+    });
   </script>
 </body>
 </html>
